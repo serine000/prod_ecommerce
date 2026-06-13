@@ -1,13 +1,19 @@
-FROM python:3.13-slim
+FROM ghcr.io/astral-sh/uv:trixie-slim AS builder
 
 WORKDIR /app
 
-COPY --from=ghcr.io/astral-sh/uv:0.9.2 /uv /bin/
-
 COPY uv.lock /app
 
-RUN uv init --name src && uv sync --frozen
+RUN uv init --name src && uv sync ---no-dev --frozen
+
+FROM python:3.13-slim AS runner
 
 COPY src /app/src
 
-ENTRYPOINT [ "uv", "run", "python", "src/main.py"]
+COPY --from=builder /app/.venv /app/.venv
+ENV PATH="/app/.venv/bin:$PATH"
+ENV PYTHONPATH=/app/.venv/lib/python3.13/site-packages
+
+WORKDIR /app
+
+ENTRYPOINT [ "python", "src/main.py"]
