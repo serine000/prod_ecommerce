@@ -1,19 +1,28 @@
-FROM ghcr.io/astral-sh/uv:trixie-slim AS builder
+FROM ghcr.io/astral-sh/uv:0.11.21-python3.13-trixie AS builder
+
+ENV UV_COMPILE_BYTECOE=1
+ENV UV_LINK_MODE=copy
+
+ENV UV_PYTHON_DOWNLOADS=0 
+# don't download your own python, use the system one
+
 
 WORKDIR /app
 
-COPY uv.lock /app
+RUN --mount=type=cache,target=/root/.cache/uv \
+    --mount=type=bind,source=uv.lock,target=uv.lock \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    uv sync --frozen --no-install-project --no-dev
 
-RUN uv init --name src && uv sync ---no-dev --frozen
+ADD . /app
 
-FROM python:3.13-slim AS runner
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --frozen --no-dev
 
-COPY src /app/src
+FROM python:3.13-slim-trixie
 
-COPY --from=builder /app/.venv /app/.venv
+COPY --from=builder --chown=app:app /app /app
+
 ENV PATH="/app/.venv/bin:$PATH"
-ENV PYTHONPATH=/app/.venv/lib/python3.13/site-packages
 
-WORKDIR /app
-
-ENTRYPOINT [ "python", "src/main.py"]
+ENTRYPOINT ["python", "src/main.py"]
