@@ -19,8 +19,10 @@ ADD . /app
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen --no-dev
 
+# Using the python runtime image - tied to docker image
 FROM python:3.13-slim-trixie
 
+# We're just copying the app into the runtime image (no uv-installed python runtime)
 COPY --from=builder --chown=app:app /app /app
 
 ENV PATH="/app/.venv/bin:$PATH"
