@@ -3,20 +3,16 @@
 
 from abc import ABC, abstractmethod
 
-class RequestListener(ABC):
+class Listener(ABC):
 
     @abstractmethod
-    def create_listener(self):
+    def create_listener(self, *args, **kwargs):
         pass
 
     @abstractmethod
-    def start_listener(self):
+    def start_listener(self, *args, **kwargs):
         pass
 
     @abstractmethod
-    def stop_listener(self):
-        pass
-    
-    @abstractmethod
-    def reply(self):
+    def stop_listener(self, *args, **kwargs):
         pass
