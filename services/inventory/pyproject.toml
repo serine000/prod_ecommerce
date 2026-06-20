@@ -8,4 +8,5 @@ dependencies = [
     "aio-pika>=9.6.2",
     "asyncio>=4.0.0",
     "pika>=1.4.1",
+    "pydantic-settings>=2.14.2",
 ]
