@@ -1,7 +1,7 @@
 # E-commerce microservices production-grade pet project
 
 ## High level overview
- A production-inspired distributed e-commerce platform built with Python, RabbitMQ, Docker, and modern observability tooling.
+A production-inspired distributed e-commerce platform built with Python, RabbitMQ, Docker, and modern observability tooling.
 
 The system follows an event-driven architecture where independent services collaborate to process customer orders asynchronously. Orders are submitted through a lightweight client interface and flow through a series of domain-specific services responsible for inventory reservation, payment processing, order orchestration, and customer notifications.
 
