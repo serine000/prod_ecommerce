@@ -3,15 +3,18 @@ FROM ghcr.io/astral-sh/uv:0.11.21-python3.13-trixie AS builder
 # Omit development dependencies
 ENV UV_NO_DEV=1
 
-ENV UV_COMPILE_BYTECOE=1
+# Compile python source to to bytecode to speed up startup time
+ENV UV_COMPILE_BYTECODE=1
+
+# Copy dependencies into the virtual environment instead of using symlink
 ENV UV_LINK_MODE=copy
 
 # don't download your own python, use the system one
 ENV UV_PYTHON_DOWNLOADS=0 
 
-
 WORKDIR /app
 
+# Downloading dependencies before we copy the source code to allow us to cache this layer later on
 RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=uv.lock,target=uv.lock \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
