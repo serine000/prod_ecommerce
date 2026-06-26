@@ -1,0 +1,13 @@
+
+services:
+  rabbitmq:
+    image: rabbitmq:4.3-management
+    container_name: rabbitmq
+    ports:
+      - "15762:15762"
+      - "5762:5762"
+  
+  inventory:
+    build: ./services/inventory/Dockerfile
+    container_name: inventory-service
+    
