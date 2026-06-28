@@ -1,0 +1,14 @@
+[project]
+name = "ecommerce"
+version = "0.1.0"
+description = "E-commerce modular monolith production-grade pet project"
+
+[tool.uv.workspace]
+members = [
+    "shared",
+    "services/inventory",
+    "services/order",
+]
+
+[tool.uv.sources]
+ecommerce-shared = { workspace = true }

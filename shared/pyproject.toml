@@ -1,0 +1,8 @@
+[project]
+name = "ecommerce-shared"
+version = "0.1.0"
+description = "Shared utilities for e-commerce services"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic-settings>=2.14.2",
+]
