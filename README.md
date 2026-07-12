@@ -1,7 +1,7 @@
 # E-commerce microservices production-grade pet project
 
 ## High level overview
-A production-inspired distributed e-commerce platform built with Python, RabbitMQ, Docker, and modern observability tooling.
+A production-inspired distributed e-commerce pet project platform built with Python, RabbitMQ, Docker, and modern observability tooling.
 
 The system follows an event-driven architecture where independent services collaborate to process customer orders asynchronously. 
 
@@ -32,3 +32,13 @@ Services communicate exclusively through RabbitMQ events, enabling loose couplin
 - CI/CD with GitHub Actions
 - Retry and dead-letter queue mechanisms
 - Idempotent message processing
+
+
+## UV set up
+For this project I'm using uv as the python package manager.
+### Setup
+- In the root project directory `/ecommerce-proj` I run `uv init` which creates all the necessary uv-related files needed.
+- In the root `pyproject.toml` file, I define which packages are local members in order to register them as local workspace packages.
+- The `uv lock` lives at the root level since it covers the whole workspace.
+- The `ecommerce-shared` package is defined locally from the `shared` local package in the workspace and not from pypi.
+- Inside each service, there is a pyproject.toml file to register them in the uv workspace as local packages as define as well in the root `pyproject.toml` file under workspace memebers.
