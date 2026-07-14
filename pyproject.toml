@@ -5,9 +5,13 @@ description = "E-commerce modular monolith production-grade pet project"
 
 [tool.uv.workspace]
 members = [
-    "shared",
+    "shared",i
     "services/inventory",
     "services/order",
+    "services/notification",
+    "services/analytics",
+    "services/shipping",
+    "services/payment"
 ]
 
 [tool.uv.sources]

@@ -1,0 +1,9 @@
+[project]
+name = "shipping"
+version = "0.1.0"
+description = "Shipping service"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "ecommerce-shared",
+]

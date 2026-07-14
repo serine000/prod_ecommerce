@@ -1,9 +1,9 @@
 [project]
 name = "order"
 version = "0.1.0"
-description = "Add your description here"
+description = "Order Service"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.13"
 dependencies = [
     "ecommerce-shared",
 ]
